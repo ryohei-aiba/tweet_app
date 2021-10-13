@@ -1,0 +1,11 @@
+<div id="title">
+    <div>
+        <p> <%= @article.created_at.strftime('%Y/%m/%d') %> 投稿者:<%= @article.user.email %></p>
+        <h1><%= @article.title%></h1>
+    </div>
+</div>    
+<div id="article_wrap">
+    <%= @article.content %>
+</div>
+
+<div class="clear"></div> 
