@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'redis'
+gem 'redis-actionpack'
 gem 'devise'
 gem 'bootstrap-sass', '3.3.7'
 gem 'rails', '~> 5.0.0'

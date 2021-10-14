@@ -1,0 +1,14 @@
+<div id="sidebar">
+    <h2>★PV数ランキング</h2>
+    <ul>
+        <% @ranking_articles.zip(@scores) do |article,score| %>
+         <li>
+             <%= link_to(article.title,"/articles/#{article.id}") %>
+             <span>
+                 <%= score %>PV
+             </span>
+         </li>    
+        <% end %>
+          
+
+</div>

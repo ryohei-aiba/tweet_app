@@ -4,6 +4,19 @@ class ArticlesController < ApplicationController
   
   def show
     @article = Article.find(params[:id])
+    
+    REDIS.zincrby "articles/pv", 1, @article.id
+    
+    ids = REDIS.zrevrangebyscore "articles/pv", "inf", 0, limit:[0, 3], :with_scores => true
+    @ids=[]
+    @scores=[]       
+    
+    ids.each do |id, score|
+      @ids << id
+      @scores << score.to_i
+    end
+    
+    @ranking_articles = @ids.map{|id|Article.find(id)}
   end
   
   def new
@@ -38,6 +51,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy 
     flash[:notice] = "Article destroyed"
+    REDIS.zrem "articles/pv", params[:id]
     redirect_to root_url
   end
   
